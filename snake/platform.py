@@ -1,0 +1,8 @@
+import pygame
+
+class Platform(pygame.sprite.Sprite):
+    def __init__(self, x, y, w, h):
+        super().__init__()
+        self.image = pygame.Surface((w, h))
+        self.image.fill((255, 0, 0))  # RED
+        self.rect = self.image.get_rect(topleft=(x, y))
