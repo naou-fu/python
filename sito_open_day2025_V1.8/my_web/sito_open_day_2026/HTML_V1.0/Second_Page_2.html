@@ -1,0 +1,145 @@
+<!-- ...existing code... -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demonstration</title>
+    <link rel="stylesheet" href="{{ url_for('css', filename='Second_Page_2.css') }}">
+</head>
+<body>
+      <!-- Menu Button and Dropdown -->
+    <div class="menu-container">
+        <button class="menu-btn" id="menuBtn">&#9776;</button>
+        <div class="menu-dropdown" id="menuDropdown">
+            <div class="triangle-bg"></div>
+            <nav class="menu-links">
+                <a href="{{ url_for('second_page_2') }}">Le discipline delle olimpiadi invernali</a>
+                <a href="{{ url_for('third_page_3') }}">Assembla la tua medalia</a>
+                <a href="{{ url_for('fourth_page_4') }}">Costruzione podio</a>
+                <a href="{{ url_for('fifth_page_5') }}">Partite hockey</a>
+                <a href="{{ url_for('sixth_page_6') }}">La scuola e corsi</a>
+                <a href="{{ url_for('seventh_page_7') }}">Sfilata e abiti</a>
+                <a href="{{ url_for('home') }}">Home</a>
+            </nav>
+        </div>
+    </div>
+
+    <main class="page">
+      <h1 class="page-title">Quali sono le discipline delle olimpiadi invernali</h1>
+
+      <section class="slideshow" aria-roledescription="carousel">
+        <div class="viewport" id="viewport" role="region" aria-label="Image slideshow">
+          <div class="slides" id="slides">
+            <figure class="slide" data-desc="Curling">
+              <a href="https://it.wikipedia.org/wiki/Curling_in_Italia"><img src="{{ url_for('images', filename='curling.jpg') }}" alt="Curling"></a>
+            </figure>
+            <figure class="slide" data-desc="Hockey">
+              <a href="https://it.wikipedia.org/wiki/Hockey"><img src="{{ url_for('images', filename='hokey.jpg') }}" alt="Hockey"></a>
+            </figure>
+            <figure class="slide" data-desc="Alpine skiing">
+              <!-- filename with space URL-encoded -->
+              <a href="https://it.wikipedia.org/wiki/Olimpia_delle_Tofane"><img src="{{ url_for('images', filename='regles-ski-alpin.jpg') }}" alt="Alpine skiing"></a>
+            </figure>
+            <figure class="slide" data-desc="Freestyle skiing">
+              <a href="https://it.wikipedia.org/wiki/Freestyle_(sci)"><img src="{{ url_for('images', filename='Freestyle_skiing_jump2.jpg') }}" alt="Freestyle skiing"></a>
+            </figure>
+            <figure class="slide" data-desc="Bobsleigh">
+              <a href="https://it.wikipedia.org/wiki/Bob"><img src="{{ url_for('images', filename='Two-man_bobsleigh.jpg') }}" alt="Bobsleigh"></a>
+            </figure>
+            <figure class="slide" data-desc="Figure skating">
+              <a href="https://it.wikipedia.org/wiki/Pattinaggio_di_figura"><img src="{{ url_for('images', filename='convert.webp') }}" alt="Figure skating"></a>
+            </figure>
+          </div>
+        </div>
+
+        <button class="nav prev" id="prev" aria-label="Previous image">‹</button>
+        <button class="nav next" id="next" aria-label="Next image">›</button>
+
+        <div class="description" id="description" aria-live="polite">des1</div>
+
+        <div class="dots" id="dots" aria-hidden="false"></div>
+      </section>
+    </main>
+
+<script>
+  (function(){
+    const slides = document.querySelectorAll('.slide');
+    const slidesEl = document.getElementById('slides');
+    const descEl = document.getElementById('description');
+    const prevBtn = document.getElementById('prev');
+    const nextBtn = document.getElementById('next');
+    const dotsEl = document.getElementById('dots');
+    let index = 0;
+    const total = slides.length;
+    const autoplayDelay = 3000; // 5 seconds
+    let autoplayId = null;
+
+    function update() {
+      slidesEl.style.transform = `translateX(-${index * 100}%)`;
+      descEl.textContent = slides[index].dataset.desc || '';
+      Array.from(dotsEl.children).forEach((d,i) => d.classList.toggle('active', i === index));
+    }
+
+    function startAutoplay() {
+      stopAutoplay();
+      autoplayId = setInterval(() => {
+        index = (index + 1) % total;
+        update();
+      }, autoplayDelay);
+    }
+
+    function stopAutoplay() {
+      if (autoplayId !== null) {
+        clearInterval(autoplayId);
+        autoplayId = null;
+      }
+    }
+
+    function resetAutoplay() {
+      startAutoplay();
+    }
+
+    // build dots
+    for (let i = 0; i < total; i++) {
+      const btn = document.createElement('button');
+      btn.className = 'dot';
+      btn.title = `Slide ${i+1}`;
+      btn.addEventListener('click', () => { index = i; update(); resetAutoplay(); });
+      dotsEl.appendChild(btn);
+    }
+
+    prevBtn.addEventListener('click', () => { index = (index - 1 + total) % total; update(); resetAutoplay(); });
+    nextBtn.addEventListener('click', () => { index = (index + 1) % total; update(); resetAutoplay(); });
+
+    // keyboard support
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') { prevBtn.click(); resetAutoplay(); }
+      if (e.key === 'ArrowRight') { nextBtn.click(); resetAutoplay(); }
+    });
+
+    // pause on hover for better UX
+    const viewport = document.getElementById('viewport');
+    viewport.addEventListener('mouseenter', stopAutoplay);
+    viewport.addEventListener('mouseleave', startAutoplay);
+
+    // initialize
+    update();
+    startAutoplay();
+  })();
+
+  const menuBtn = document.getElementById('menuBtn');
+  const menuDropdown = document.getElementById('menuDropdown');
+  menuBtn.onclick = function(e) {
+      e.stopPropagation();
+      menuDropdown.classList.toggle('show');
+  };
+  document.addEventListener('click', function(e) {
+      if (!menuBtn.contains(e.target) && !menuDropdown.contains(e.target)) {
+          menuDropdown.classList.remove('show');
+      }
+  });
+</script>
+</body>
+</html>
+<!-- ...existing code... -->

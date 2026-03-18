@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>assembla la tua medaglia</title>
+    <link rel="stylesheet" href="{{ url_for('css', filename='Third_Page_3.css') }}">
+</head>
+<body>
+    <main>
+            <div class="menu-container">
+        <button class="menu-btn" id="menuBtn">&#9776;</button>
+        <div class="menu-dropdown" id="menuDropdown">
+            <div class="triangle-bg"></div>
+            <nav class="menu-links">
+                <a href="{{ url_for('second_page_2') }}">Le discipline delle olimpiadi invernali</a>
+                <a href="{{ url_for('third_page_3') }}">Assembla la tua medalia</a>
+                <a href="{{ url_for('fourth_page_4') }}">Costruzione podio</a>
+                <a href="{{ url_for('fifth_page_5') }}">Partite hockey</a>
+                <a href="{{ url_for('sixth_page_6') }}">La scuola e corsi</a>
+                <a href="{{ url_for('seventh_page_7') }}">Sfilata e abiti</a>
+                <a href="{{ url_for('home') }}">Home</a>
+            </nav>
+        </div>
+    </div>
+
+    <h1>Assembla la tua medalia</h1>
+    <div class="image-container">
+        <img src="{{ url_for('images', filename='medal.jpeg') }}" alt="medal">
+        <img src="{{ url_for('images', filename='dal.jpeg') }}" alt="medal">
+        <img src="{{ url_for('images', filename='edal.jpeg') }}" alt="medal">
+    </div>
+
+        <h1>Una piccola medaglia rotonda in legno, con una superficie liscia e lucidata e un semplice disegno inciso. </h1>
+        <h1>Le venature naturali le donano un fascino rustico, e un sottile nastro è inserito in un piccolo foro in alto per appenderla o indossarla.</h1>
+
+    </main>
+    <script>
+    const menuBtn = document.getElementById('menuBtn');
+    const menuDropdown = document.getElementById('menuDropdown');
+    menuBtn.onclick = function(e) {
+        e.stopPropagation();
+        menuDropdown.classList.toggle('show');
+    };
+    document.addEventListener('click', function(e) {
+        if (!menuBtn.contains(e.target) && !menuDropdown.contains(e.target)) {
+            menuDropdown.classList.remove('show');
+        }
+    });
+</script>
+</body>
+</html>

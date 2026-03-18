@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main page</title>
+    <link rel="stylesheet" href="{{ url_for('css', filename='First_Page_1.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('images', filename='icon.jpg') }}">
+</head>
+<body id="body">
+    <!-- Menu Button and Dropdown -->
+    <div class="menu-container">
+        <button class="menu-btn" id="menuBtn">&#9776;</button>
+        <div class="menu-dropdown" id="menuDropdown">
+            <div class="triangle-bg"></div>
+            <nav class="menu-links">
+                <a href="{{ url_for('second_page_2') }}">Le discipline delle olimpiadi invernali</a>
+                <a href="{{ url_for('third_page_3') }}">Assembla la tua medalia</a>
+                <a href="{{ url_for('fourth_page_4') }}">Costruzione podio</a>
+                <a href="{{ url_for('fifth_page_5') }}">Partite hockey</a>
+                <a href="{{ url_for('sixth_page_6') }}">La scuola e corsi</a>
+                <a href="{{ url_for('seventh_page_7') }}">Sfilata e abiti</a>
+                <a href="{{ url_for('home') }}">Home</a>
+            </nav>
+        </div>
+    </div>
+    <video autoplay muted loop id="myVideo">
+        <source src="{{ url_for('videos_gif', filename='acbfd7fdc1a3d53f8c80baf26698a84a.mp4') }}" type="video/mp4">
+    </video>
+    <img src="{{ url_for('images', filename='Logo TWG.png') }}" id="img1">
+    <img src="{{ url_for('images', filename='logo.png') }}" alt="Logo" id="logo"> 
+    <h1 id="titolo"> Terragni Winter Games </h1>
+    </a>
+    <h2 class="intro">12 Dicembre 2025</h2> 
+
+<script>
+    const menuBtn = document.getElementById('menuBtn');
+    const menuDropdown = document.getElementById('menuDropdown');
+    menuBtn.onclick = function(e) {
+        e.stopPropagation();
+        menuDropdown.classList.toggle('show');
+    };
+    document.addEventListener('click', function(e) {
+        if (!menuBtn.contains(e.target) && !menuDropdown.contains(e.target)) {
+            menuDropdown.classList.remove('show');
+        }
+    });
+</script>
+</body>
+</html>
